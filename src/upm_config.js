@@ -59,11 +59,10 @@ async function validate_auth_token(registry_url, auth_token) {
     ], {
         listeners: {
             stdout: (data) => {
-                core.debug(data.toString());
                 const response = JSON.parse(data.toString());
-                if (response.ok === true) {
-                    return;
-                } else {
+                core.info('');
+                core.debug(data.toString());
+                if (response.error) {
                     throw new Error(response.error);
                 }
             }
@@ -76,12 +75,8 @@ async function save_upm_config(registry_url, auth_token) {
     try {
         await fs.access(upm_config_toml_path);
     } catch (error) {
-        // create .upmconfig.toml
         await fs.writeFile(upm_config_toml_path, '');
     }
-    // update .upmconfig.toml with registry_url and auth_token
-    // check if registry_url and auth_token are already present
-    // if not, append them to the file
     const upm_config_toml = await fs.readFile(upm_config_toml_path, 'utf-8');
     if (!upm_config_toml.includes(registry_url)) {
         const alwaysAuth = core.getInput('alwaysAuth') === 'true';
