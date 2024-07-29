@@ -26175,7 +26175,8 @@ async function Run() {
 module.exports = { Run };
 
 async function authenticate(registry_url, username, password) {
-    const base64_auth = Buffer.from(`${username}:${password}`).toString('base64');
+    const ascii_auth = `${username}:${password}`.toString('ascii');
+    const base64_auth = Buffer.from(ascii_auth).toString('base64');
     core.setSecret(base64_auth);
     let output = '';
     await exec.exec('curl', [
