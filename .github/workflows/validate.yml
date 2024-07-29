@@ -34,26 +34,24 @@ jobs:
 
       - run: |
           # macOS and Linux '~/.upmconfig.toml'
-          # winodows '%USERPROFILE%\.upmconfig.toml'
+          # windows '%USERPROFILE%\.upmconfig.toml'
 
-          if ($env:OS -eq "Windows_NT") {
-            $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
-          } else {
-            $upmconfig = "$env:HOME/.upmconfig.toml"
-          }
+          if [[ "$OSTYPE" == "msys" ]]; then
+            upmconfig="$USERPROFILE\\.upmconfig.toml"
+          else
+            upmconfig="$HOME/.upmconfig.toml"
+          fi
 
-          Write-Host "Checking for upmconfig at $upmconfig"
+          echo "Checking for upmconfig at $upmconfig"
 
-          if (-not (Test-Path $upmconfig)) {
-            Write-Host ".upmconfig.toml does not exist"
+          if [[ ! -f "$upmconfig" ]]; then
+            echo ".upmconfig.toml does not exist"
             exit 1
-          }
+          fi
 
-          # delete it
-          # Change file attributes to ensure it can be deleted
-          Set-ItemProperty -Path $upmconfig -Name IsReadOnly -Value $false
-          Remove-Item $upmconfig
-        shell: pwsh
+          chmod +w "$upmconfig"
+          rm "$upmconfig"
+        shell: bash
 
       - name: RageAgainstThePixel/upm-config
         uses: ./
@@ -64,18 +62,21 @@ jobs:
 
       - run: |
           # macOS and Linux '~/.upmconfig.toml'
-          # winodows '%USERPROFILE%\.upmconfig.toml'
+          # windows '%USERPROFILE%\.upmconfig.toml'
 
-          if ($env:OS -eq "Windows_NT") {
-            $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
-          } else {
-            $upmconfig = "$env:HOME/.upmconfig.toml"
-          }
+          if [[ "$OSTYPE" == "msys" ]]; then
+            upmconfig="$USERPROFILE\\.upmconfig.toml"
+          else
+            upmconfig="$HOME/.upmconfig.toml"
+          fi
 
-          Write-Host "Checking for upmconfig at $upmconfig"
+          echo "Checking for upmconfig at $upmconfig"
 
-          if (-not (Test-Path $upmconfig)) {
-            Write-Host ".upmconfig.toml does not exist"
+          if [[ ! -f "$upmconfig" ]]; then
+            echo ".upmconfig.toml does not exist"
             exit 1
-          }
-        shell: pwsh
+          fi
+
+          chmod +w "$upmconfig"
+          rm "$upmconfig"
+        shell: bash

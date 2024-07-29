@@ -37,7 +37,8 @@ async function authenticate(registry_url, username, password) {
             stdout: (data) => {
                 output += data.toString();
             }
-        }
+        },
+        silent: true
     });
     core.debug(output);
     const response = JSON.parse(output);
@@ -64,7 +65,8 @@ async function validate_auth_token(registry_url, auth_token) {
             stdout: (data) => {
                 output += data.toString();
             }
-        }
+        },
+        silent: true
     });
     core.debug(output);
     const response = JSON.parse(output);
