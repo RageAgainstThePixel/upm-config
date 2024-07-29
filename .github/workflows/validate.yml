@@ -42,12 +42,12 @@ jobs:
             upmconfig="$HOME/.upmconfig.toml"
           fi
 
-          echo "Checking for upmconfig at $upmconfig"
-
           if [[ ! -f "$upmconfig" ]]; then
             echo ".upmconfig.toml does not exist"
             exit 1
           fi
+
+          echo ":white_check_mark: .upmconfig exists"
 
           chmod +w "$upmconfig"
           rm "$upmconfig"
@@ -70,12 +70,12 @@ jobs:
             upmconfig="$HOME/.upmconfig.toml"
           fi
 
-          echo "Checking for upmconfig at $upmconfig"
-
           if [[ ! -f "$upmconfig" ]]; then
             echo ".upmconfig.toml does not exist"
             exit 1
           fi
+
+          echo ":white_check_mark: .upmconfig exists"
 
           chmod +w "$upmconfig"
           rm "$upmconfig"

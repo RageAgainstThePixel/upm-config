@@ -26199,7 +26199,7 @@ async function authenticate(registry_url, username, password) {
         core.setSecret(auth_token);
         return auth_token;
     } else {
-        throw new Error(response);
+        throw new Error(output);
     }
 }
 
