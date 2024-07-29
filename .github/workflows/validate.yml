@@ -47,8 +47,6 @@ jobs:
             exit 1
           fi
 
-          echo ":white_check_mark: .upmconfig exists"
-
           chmod +w "$upmconfig"
           rm "$upmconfig"
         shell: bash
@@ -74,8 +72,6 @@ jobs:
             echo ".upmconfig.toml does not exist"
             exit 1
           fi
-
-          echo ":white_check_mark: .upmconfig exists"
 
           chmod +w "$upmconfig"
           rm "$upmconfig"

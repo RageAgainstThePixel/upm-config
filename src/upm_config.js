@@ -26,13 +26,18 @@ async function authenticate(registry_url, username, password) {
     const ascii_auth = `${username}:${password}`.toString('ascii');
     const base64_auth = Buffer.from(ascii_auth).toString('base64');
     core.setSecret(base64_auth);
+    const payload = {
+        name: username,
+        password: password,
+    };
     let output = '';
     await exec.exec('curl', [
         '-X', 'PUT',
-        '-H', `Authorization: Basic ${base64_auth}`,
-        '-H', 'Content-Type: application/json',
         '-H', 'Accept: application/json',
-        `${registry_url}/-/user/org.couchdb.user:${username}`
+        '-H', 'Content-Type: application/json',
+        '-H', `Authorization: Basic ${base64_auth}`,
+        `${registry_url}/-/user/org.couchdb.user:${username}`,
+        '-d', JSON.stringify(payload)
     ], {
         listeners: {
             stdout: (data) => {
@@ -57,9 +62,9 @@ async function validate_auth_token(registry_url, auth_token) {
     let output = '';
     await exec.exec('curl', [
         '-X', 'GET',
-        '-H', `Authorization: Bearer ${auth_token}`,
-        '-H', 'Content-Type: application/json',
         '-H', 'Accept: application/json',
+        '-H', 'Content-Type: application/json',
+        '-H', `Authorization: Bearer ${auth_token}`,
         `${registry_url}/-/v1/search`
     ], {
         listeners: {
