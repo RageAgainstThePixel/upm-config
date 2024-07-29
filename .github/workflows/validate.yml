@@ -33,14 +33,22 @@ jobs:
           auth_token: ${{ secrets.UPM_AUTH_TOKEN }}
 
       - run: |
-          # check that user directory contains .upmconfig.toml for linux, macos, and windows
-          $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
-          Write-Host "Checking for upmconfig at $upmconfig"
-          if (Test-Path $upmconfig) {
+          # macOS and Linux '~/.upmconfig.toml'
+          # winodows '%USERPROFILE%\.upmconfig.toml'
+
+          if ($env:OS -eq "Windows_NT") {
+            $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
           } else {
+            $upmconfig = "$env:HOME/.upmconfig.toml"
+          }
+
+          Write-Host "Checking for upmconfig at $upmconfig"
+
+          if (-not (Test-Path $upmconfig)) {
             Write-Host ".upmconfig.toml does not exist"
             exit 1
           }
+
           # delete it
           Remove-Item $upmconfig
         shell: pwsh
@@ -53,14 +61,22 @@ jobs:
           password: ${{ secrets.UPM_PASSWORD }}
 
       - run: |
-          # check that user directory contains .upmconfig.toml for linux, macos, and windows
-          $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
-          Write-Host "Checking for upmconfig at $upmconfig"
-          if (Test-Path $upmconfig) {
+          # macOS and Linux '~/.upmconfig.toml'
+          # winodows '%USERPROFILE%\.upmconfig.toml'
+
+          if ($env:OS -eq "Windows_NT") {
+            $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
           } else {
+            $upmconfig = "$env:HOME/.upmconfig.toml"
+          }
+
+          Write-Host "Checking for upmconfig at $upmconfig"
+
+          if (-not (Test-Path $upmconfig)) {
             Write-Host ".upmconfig.toml does not exist"
             exit 1
           }
+
           # delete it
           Remove-Item $upmconfig
         shell: pwsh

@@ -26237,6 +26237,8 @@ async function save_upm_config(registry_url, auth_token) {
 }
 
 function get_upm_config_toml_path() {
+    // macOS and Linux '~/.upmconfig.toml'
+    // winodows '%USERPROFILE%\.upmconfig.toml'
     switch (process.platform) {
         case 'win32':
             return path.join(process.env.USERPROFILE, '.upmconfig.toml');
