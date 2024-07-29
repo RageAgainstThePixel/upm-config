@@ -26,7 +26,7 @@ async function authenticate(registry_url, username, password) {
     const base64_auth = Buffer.from(`${username}:${password}`).toString('base64');
     core.setSecret(base64_auth);
     await exec.exec('curl', [
-        '-X', 'POST',
+        '-X', 'PUT',
         '-H', `Authorization: Basic ${base64_auth}`,
         '-H', 'Content-Type: application/json',
         '-H', 'Accept: application/json',
