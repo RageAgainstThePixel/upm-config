@@ -50,6 +50,8 @@ jobs:
           }
 
           # delete it
+          # Change file attributes to ensure it can be deleted
+          Set-ItemProperty -Path $upmconfig -Name IsReadOnly -Value $false
           Remove-Item $upmconfig
         shell: pwsh
 
@@ -76,7 +78,4 @@ jobs:
             Write-Host ".upmconfig.toml does not exist"
             exit 1
           }
-
-          # delete it
-          Remove-Item $upmconfig
         shell: pwsh
