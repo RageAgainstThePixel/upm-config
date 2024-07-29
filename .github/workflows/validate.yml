@@ -35,10 +35,10 @@ jobs:
       - run: |
           # check that user directory contains .upmconfig.toml for linux, macos, and windows
           $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
+          Write-Host "Checking for upmconfig at $upmconfig"
           if (Test-Path $upmconfig) {
-            Write-Host "upmconfig exists"
           } else {
-            Write-Host "upmconfig does not exist"
+            Write-Host ".upmconfig.toml does not exist"
             exit 1
           }
           # delete it
@@ -55,10 +55,10 @@ jobs:
       - run: |
           # check that user directory contains .upmconfig.toml for linux, macos, and windows
           $upmconfig = "$env:USERPROFILE\.upmconfig.toml"
+          Write-Host "Checking for upmconfig at $upmconfig"
           if (Test-Path $upmconfig) {
-            Write-Host "upmconfig exists"
           } else {
-            Write-Host "upmconfig does not exist"
+            Write-Host ".upmconfig.toml does not exist"
             exit 1
           }
           # delete it
