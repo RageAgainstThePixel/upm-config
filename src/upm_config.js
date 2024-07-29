@@ -81,7 +81,7 @@ async function save_upm_config(registry_url, auth_token) {
         await fs.writeFile(upm_config_toml_path, '');
     }
     if (process.platform !== 'win32') {
-        await fs.chmod(upm_config_toml_path, 0o600);
+        await fs.chmod(upm_config_toml_path, 0o777);
     }
     const upm_config_toml = await fs.readFile(upm_config_toml_path, 'utf-8');
     if (!upm_config_toml.includes(registry_url)) {
