@@ -26177,6 +26177,7 @@ module.exports = { Run };
 async function authenticate(registry_url, username, password) {
     const base64_auth = Buffer.from(`${username}:${password}`).toString('base64');
     core.setSecret(base64_auth);
+    let output = '';
     await exec.exec('curl', [
         '-X', 'PUT',
         '-H', `Authorization: Basic ${base64_auth}`,
@@ -26186,23 +26187,24 @@ async function authenticate(registry_url, username, password) {
     ], {
         listeners: {
             stdout: (data) => {
-                core.info(data.toString());
-                const response = JSON.parse(data.toString());
-                if (response.token) {
-                    const auth_token = response.token;
-                    core.setSecret(auth_token);
-                    return auth_token;
-                } else {
-                    throw new Error(response);
-                }
+                output += data.toString();
             }
         }
     });
-    throw new Error('Authentication failed');
+    core.debug(output);
+    const response = JSON.parse(output);
+    if (response.token) {
+        const auth_token = response.token;
+        core.setSecret(auth_token);
+        return auth_token;
+    } else {
+        throw new Error(response);
+    }
 }
 
 async function validate_auth_token(registry_url, auth_token) {
     // validate that the auth token is valid by fetching the list of packages
+    let output = '';
     await exec.exec('curl', [
         '-X', 'GET',
         '-H', `Authorization: Bearer ${auth_token}`,
@@ -26212,13 +26214,15 @@ async function validate_auth_token(registry_url, auth_token) {
     ], {
         listeners: {
             stdout: (data) => {
-                const response = JSON.parse(data.toString());
-                if (response.error) {
-                    throw new Error(response.error);
-                }
+                output += data.toString();
             }
         }
     });
+    core.debug(output);
+    const response = JSON.parse(output);
+    if (response.error) {
+        throw new Error(response.error);
+    }
 }
 
 async function save_upm_config(registry_url, auth_token) {
