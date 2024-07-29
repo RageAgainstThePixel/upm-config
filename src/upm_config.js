@@ -47,7 +47,7 @@ async function authenticate(registry_url, username, password) {
         core.setSecret(auth_token);
         return auth_token;
     } else {
-        throw new Error(output);
+        throw new Error(response.error);
     }
 }
 
