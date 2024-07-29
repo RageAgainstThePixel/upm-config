@@ -26213,7 +26213,7 @@ async function validate_auth_token(registry_url, auth_token) {
             stdout: (data) => {
                 const response = JSON.parse(data.toString());
                 core.info('');
-                core.debug(data.toString());
+                core.debug(response);
                 if (response.error) {
                     throw new Error(response.error);
                 }
@@ -26228,6 +26228,9 @@ async function save_upm_config(registry_url, auth_token) {
         await fs.access(upm_config_toml_path);
     } catch (error) {
         await fs.writeFile(upm_config_toml_path, '');
+    }
+    if (process.platform !== 'win32') {
+        await fs.chmod(upm_config_toml_path, 0o644);
     }
     const upm_config_toml = await fs.readFile(upm_config_toml_path, 'utf-8');
     if (!upm_config_toml.includes(registry_url)) {
