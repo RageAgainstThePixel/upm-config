@@ -34,13 +34,14 @@ async function authenticate(registry_url, username, password) {
     ], {
         listeners: {
             stdout: (data) => {
+                core.info(data.toString());
                 const response = JSON.parse(data.toString());
-                if (response.ok) {
+                if (response.token) {
                     const auth_token = response.token;
                     core.setSecret(auth_token);
                     return auth_token;
                 } else {
-                    throw new Error(`${response.error}: ${response.reason}`);
+                    throw new Error(response);
                 }
             }
         }
@@ -60,8 +61,6 @@ async function validate_auth_token(registry_url, auth_token) {
         listeners: {
             stdout: (data) => {
                 const response = JSON.parse(data.toString());
-                core.info('');
-                core.debug(response);
                 if (response.error) {
                     throw new Error(response.error);
                 }
