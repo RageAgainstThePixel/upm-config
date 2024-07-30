@@ -1,7 +1,7 @@
 {
   "name": "upm-config",
   "version": "1.0.0",
-  "description": "A GitHub action for setting Unity UPM private scoped registry configurations.",
+  "description": "A GitHub action for setting Unity UPM private scoped registry credentials.",
   "author": "RageAgainstThePixel",
   "repository": {
     "type": "git",
