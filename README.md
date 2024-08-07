@@ -17,7 +17,7 @@ steps:
 
 ### inputs
 
-| name | description | required |
+| input name | description | required |
 | ----------- | ----------- | ----------- |
 | `registry-url` | The URL of the private scoped registry. | true |
 | `auth-token` | The authentication token for the private scoped registry. | Required if username and password are not provided. |
