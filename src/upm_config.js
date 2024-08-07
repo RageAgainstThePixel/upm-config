@@ -4,8 +4,8 @@ const path = require('path');
 const fs = require('fs/promises');
 
 async function Run() {
-    const registry_url = core.getInput('registry_url', { required: true });
-    let auth_token = core.getInput('auth_token');
+    const registry_url = core.getInput('registry-url', { required: true });
+    let auth_token = core.getInput('auth-token');
     if (!auth_token) {
         const username = core.getInput('username', { required: true });
         const password = core.getInput('password', { required: true });
@@ -93,7 +93,7 @@ async function save_upm_config(registry_url, auth_token) {
     }
     const upm_config_toml = await fs.readFile(upm_config_toml_path, 'utf-8');
     if (!upm_config_toml.includes(registry_url)) {
-        const alwaysAuth = core.getInput('alwaysAuth') === 'true';
+        const alwaysAuth = core.getInput('always-auth') === 'true';
         await fs.appendFile(upm_config_toml_path, `registry_url = "${registry_url}"\nauth_token = "${auth_token}"\nalwaysAuth = ${alwaysAuth}\n`);
     }
 }

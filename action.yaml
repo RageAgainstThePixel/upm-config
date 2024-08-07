@@ -1,11 +1,11 @@
 name: 'upm-config'
-description: 'A GitHub action for setting Unity UPM private scoped registry configurations.'
+description: 'A GitHub Action for setting Unity UPM private scoped registry configurations in CI/CD workflows.'
 
 inputs:
-  registry_url:
+  registry-url:
     description: 'The URL of the private scoped registry.'
     required: true
-  auth_token:
+  auth-token:
     description: 'The authentication token for the private scoped registry. Required if username and password are not provided.'
     required: false
   username:
@@ -14,7 +14,7 @@ inputs:
   password:
     description: 'The password for the private scoped registry. Required if auth_token is not provided.'
     required: false
-  always_auth:
+  always-auth:
     description: 'Whether to always authenticate with the private scoped registry. Defaults to true.'
     required: false
     default: 'true'
