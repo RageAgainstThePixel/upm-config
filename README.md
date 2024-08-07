@@ -8,7 +8,7 @@ A GitHub Action for setting Unity Engine UPM private scoped registry credentials
 
 ```yaml
 steps:
-  - uses: RageAgainstThePixel/upm-config@v1
+  - uses: RageAgainstThePixel/upm-config@v2
     with:
       registry-url: 'http://upm.registry.com:4873'
       username: ${{ secrets.UPM_USERNAME }}
