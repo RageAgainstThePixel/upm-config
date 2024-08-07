@@ -10,10 +10,8 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 concurrency:
-  group: ${{ github.ref }}
-
+  group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   validate:
     runs-on: ${{ matrix.os }}
@@ -23,14 +21,13 @@ jobs:
         os: [ macos-latest, windows-latest, ubuntu-latest ]
 
     steps:
-      - name: checkout self
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: RageAgainstThePixel/upm-config
         uses: ./
         with:
-          registry_url: ${{ secrets.UPM_REGISTRY_URL }}
-          auth_token: ${{ secrets.UPM_AUTH_TOKEN }}
+          registry-url: ${{ secrets.UPM_REGISTRY_URL }}
+          auth-token: ${{ secrets.UPM_AUTH_TOKEN }}
 
       - run: |
           # macOS and Linux '~/.upmconfig.toml'
@@ -54,7 +51,7 @@ jobs:
       - name: RageAgainstThePixel/upm-config
         uses: ./
         with:
-          registry_url: ${{ secrets.UPM_REGISTRY_URL }}
+          registry-url: ${{ secrets.UPM_REGISTRY_URL }}
           username: ${{ secrets.UPM_USERNAME }}
           password: ${{ secrets.UPM_PASSWORD }}
 

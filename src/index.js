@@ -6,6 +6,7 @@ const main = async () => {
         await upm_config.Run();
     } catch (error) {
         core.setFailed(error);
+        process.exit(1);
     }
 }
 
