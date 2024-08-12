@@ -1,5 +1,8 @@
 name: 'upm-config'
 description: 'A GitHub Action for setting Unity UPM private scoped registry configurations in CI/CD workflows.'
+branding:
+  color: 'blue'
+  icon: 'archive'
 inputs:
   registry-url:
     description: 'The URL of the private scoped registry.'
