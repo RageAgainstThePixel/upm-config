@@ -1,6 +1,6 @@
 {
   "name": "upm-config",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A GitHub Action for setting Unity Engine UPM private scoped registry credentials in CI/CD workflows.",
   "author": "RageAgainstThePixel",
   "license": "MIT",
